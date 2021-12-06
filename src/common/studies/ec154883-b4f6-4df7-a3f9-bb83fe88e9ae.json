@@ -1,0 +1,60 @@
+[
+    {
+        "patientName": "Anonymized6",
+        "patientId": "ec154883-b4f6-4df7-a3f9-bb83fe88e9ae",
+        "studyDate": "",
+        "modality": "Mammo",
+        "studyDescription": "Mammo",
+        "numImages": 1,
+        "studyId": "5bdc34d4-78386776-9becd17e-f2f8b7a5-e202df1f",
+        "seriesList": [
+            {
+                "seriesDescription": "MG",
+                "seriesNumber": "2",
+                "instanceList": [
+                    {
+                        "imageId": "21e3a333-26e611e7-5b89c773-0a806057-afa75ddb/file"
+                    }
+                ]
+            },
+            {
+                "seriesDescription": "MG",
+                "seriesNumber": "4",
+                "instanceList": [
+                    {
+                        "imageId": "cf6d9c5d-cb900f83-52f9161b-25d0588d-496b4fd9/file"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "patientName": "Anonymized6",
+        "patientId": "ec154883-b4f6-4df7-a3f9-bb83fe88e9ae",
+        "studyDate": "",
+        "modality": "Mammo",
+        "studyDescription": "Mammo",
+        "numImages": 1,
+        "studyId": "ee7d2c12-ec0ecbe2-3435e2e2-4c7c0be6-7d441cc7",
+        "seriesList": [
+            {
+                "seriesDescription": "MG",
+                "seriesNumber": "2",
+                "instanceList": [
+                    {
+                        "imageId": "8454e75f-2f0bec30-a0592935-9f830eb6-dac83cdd/file"
+                    }
+                ]
+            },
+            {
+                "seriesDescription": "MG",
+                "seriesNumber": "4",
+                "instanceList": [
+                    {
+                        "imageId": "7ee3c7ae-b9073fd5-5d4a0dcd-25fc8abf-e280c673/file"
+                    }
+                ]
+            }
+        ]
+    }
+]

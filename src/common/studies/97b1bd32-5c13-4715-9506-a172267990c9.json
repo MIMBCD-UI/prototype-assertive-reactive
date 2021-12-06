@@ -1,0 +1,49 @@
+[
+    {
+        "patientName": "Anonymized4",
+        "patientId": "97b1bd32-5c13-4715-9506-a172267990c9",
+        "studyDate": "20160602",
+        "modality": "Mammo",
+        "studyDescription": "Mammo",
+        "numImages": 1,
+        "studyId": "0330b4a8-b33fec04-dabd8138-49ef4095-10c58d9b",
+        "seriesList": [
+            {
+                "seriesDescription": "MG",
+                "seriesNumber": "2",
+                "instanceList": [
+                    {
+                        "imageId": "7956ff6a-39ed27e7-97721077-96474d79-d1778dbc/file"
+                    }
+                ]
+            },
+            {
+                "seriesDescription": "MG",
+                "seriesNumber": "4",
+                "instanceList": [
+                    {
+                        "imageId": "2ce1781a-e3711187-255f5f36-50b304f3-7809f1d8/file"
+                    }
+                ]
+            },
+            {
+                "seriesDescription": "MG",
+                "seriesNumber": "1",
+                "instanceList": [
+                    {
+                        "imageId": "912960da-9d75c4ed-37adedac-cb474e6e-6630e3be/file"
+                    }
+                ]
+            },
+            {
+                "seriesDescription": "MG",
+                "seriesNumber": "3",
+                "instanceList": [
+                    {
+                        "imageId": "641948ef-f5a1b92a-fede188c-eef74bb1-ab6d4739/file"
+                    }
+                ]
+            }
+        ]
+    }
+]

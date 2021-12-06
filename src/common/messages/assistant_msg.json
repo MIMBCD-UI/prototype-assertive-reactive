@@ -1,0 +1,41 @@
+{
+
+    "assisMessage" : [
+        {
+          "message_001": "With an accuracy of ",
+          "message_002": ", the estimaed BIRADS for this patient is"
+        }
+    ],
+
+    "assisWarning" : [
+        {
+          "warning_001": "Do you need help?",
+          "warning_002": "Please contact to the admin of the system.",
+          "warning_003": "Thanks!"
+        }
+    ],
+
+    "assisCovariable": [
+      {
+        "covariable_001": "In this case, we have ",
+        "covariable_002": [" finding.", " findings.", " findings"],
+        "covariable_003": [[" The finding ", " One finding "], ". The second finding ", ". The third finding ", ". The fourth finding ", ". The fifth finding "],
+        "covariable_004": ["is ", "are "],
+        "covariable_005": ["a mass", "calcifications"],
+        "covariable_006": " with ",
+        "covariable_007": [" shape", " margin", " density", " distribution"],
+        "covariable_008": [", ", " and "],
+        "covariable_009": ". There is ",
+        "covariable_010": "family history",
+        "covariable_011": "personal history",
+        "covariable_012": "no ",
+        "covariable_013": " or ",
+        "covariable_014": "no",
+        "covariable_015": "has ",
+        "covariable_016": "no information",
+        "covariable_017": ". There are ",
+        "covariable_018": "no findings",
+        "covariable_019": " regarding "
+      }
+    ]
+}

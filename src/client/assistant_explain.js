@@ -34,6 +34,11 @@ function disableXAITools() {
 }
 
 function explain_assistant_rerult(button = true) { 
+
+  if ($("#explainBtn").data("executing")) return;
+
+  $("#explainBtn").data("executing", true);
+
   var stack = toolData.data[0];
   var currentlyActiveImageURL = stack.imageIds[0];          // gives the active image of the system (not the json)
   var currentlyActiveImageId = currentlyActiveImageURL.slice(35, -5) // only the image id itself from the sys (not the json file)
@@ -50,6 +55,8 @@ function explain_assistant_rerult(button = true) {
     list_of_cs = [];
     global_var_explain = false;
     disableXAITools();
+
+    assis_explanation_animation_btn();
   }
   else{
     global_var_explain = true;
@@ -65,6 +72,8 @@ function explain_assistant_rerult(button = true) {
       }
       bounding_box(openPatientUrl, list_image_ID_viewPort[i], canvas[i], Math.max(list_zoom_viewPort[i],0.1), button, list_places[i]);
     }
+
+    assis_explanation_animation_btn();
   }
 }
 

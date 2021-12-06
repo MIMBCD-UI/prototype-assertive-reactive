@@ -23,7 +23,6 @@ Type:
 2 - BIRADS caption
  */
 function caption(type, value) {
-    console.log(type + " " + value)
     switch (type) {
         case 0:
             let captionHtml = "<div class=tooltipwidth>" +

@@ -313,8 +313,6 @@ function hexToRgb(hex) {
 }
 
 function getLesionValue(color) {
-    console.log(color)
-    console.log(hexToRgb("#009E0F"))
     const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
     if (equals(color,hexToRgb("#2B78E4")))
         return 0;

@@ -67,46 +67,14 @@ function caption(type, value) {
 
             return captionHtml;
 
-
-        // return "<div class=tooltipwidth>" +
-        //     "<div class=row>" +
-        //     "<div class=textblue>" +
-        //     "Neutral" +
-        //     "</div>" +
-        //     "<div class=textpurple>" +
-        //     "No findings" +
-        //     "</div>" +
-        //     "</div>" +
-        //     "<div class=row>" +
-        //     "<div class=gradblue>" +
-        //     "</div>" +
-        //     "<div class=gradpurple>" +
-        //     "</div>" +
-        //     "</div>" +
-        //     "<div class=row>" +
-        //     "<div class=textgreen>" +
-        //     "Benign" +
-        //     "</div>" +
-        //     "<div class=textred>" +
-        //     "Malign" +
-        //     "</div>" +
-        //     "</div>" +
-        //     "<div class=row>" +
-        //     "<div class=grad>" +
-        //     "</div>" +
-        //     "</div>" +
-        //     "</div>"
         case 1:
-            return "<div class=tooltipwidth>" +
+            return "<div class=tooltipwidth style=height:40px;>" +
                 "<div class=row>" +
                 " <div class=text0>" +
                 "0%" +
                 "</div>" +
                 "<div class=text100>" +
                 "100%" +
-                "</div>" +
-                " <div class=text85>" +
-                "85%" +
                 "</div>" +
                 "<div class=text50>" +
                 "50%" +
@@ -115,11 +83,6 @@ function caption(type, value) {
                 "<div class=row>" +
                 "<div class=gradaccuracy>" +
                 "<span class=dot style=left:" + biradsaccuracydotposition(value) + "%;></span>" +
-                "</div>" +
-                "</div>" +
-                "<div class=row>" +
-                "<div class=textbiradsaccuracy>" +
-                "BIRADS Accuracy" +
                 "</div>" +
                 "</div>" +
                 "</div>";

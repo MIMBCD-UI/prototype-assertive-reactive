@@ -1,6 +1,10 @@
 // Assistant Switch 
 function assistantSwitch() {
     
+    if ($("#explainBtn").data("executing")){
+        $("#switchInput").prop("checked",true);
+        return;
+    }
 
     var assistant_block_width = $('.assistant_block').width();
     if (assistant_block_width < 200) {
@@ -51,7 +55,7 @@ function assis_explanation_animation_btn() {
                 height: "0px",
                 borderWidth: "0px",
                 padding: "0px"
-            },  10, function () {
+            },  400, function () {
                 $("#explainBtn").removeData("executing");
             } );
         });

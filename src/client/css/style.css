@@ -315,26 +315,25 @@ a.list-group-item.active:focus {
     color: #CF2A27; 
     position: absolute;
     left: 7.5%;
+    margin-top: 2%;
+    margin-bottom: 1%;
     text-align: center;
 }
 
 .text50 {
     color: #CF2A27;
     width: 100%;
+    margin-top: 2%;
+    margin-bottom: 1%;
     justify-content: center; /** X-axis align **/
-}
-
-.text85 {
-    color: #FF9900;
-    position: absolute;
-    left: 72.75%;
-    text-align: center;
 }
 
 .text100 {
     color: #009E0F; 
     position: absolute;
-    left: 86%;
+    left: 82%;
+    margin-top: 2%;
+    margin-bottom: 1%;
     text-align: center;
 }
 

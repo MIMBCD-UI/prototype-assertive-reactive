@@ -3,7 +3,7 @@
     "assisMessage" : [
         {
           "message_001": "With an accuracy of ",
-          "message_002": ", the estimaed BIRADS for this patient is"
+          "message_002": ", the estimated BIRADS for this patient is"
         }
     ],
 

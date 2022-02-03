@@ -1,4 +1,4 @@
-Copyright © 2019 [Instituto Superior Técnico (IST)](https://tecnico.ulisboa.pt/)
+Copyright © 2021 [Instituto Superior Técnico (IST)](https://tecnico.ulisboa.pt/)
 
 # License Summary
 
@@ -10,7 +10,7 @@ Copyright © 2019 [Instituto Superior Técnico (IST)](https://tecnico.ulisboa.pt
 
 # Lesion Bounding Boxes (BBs) Prototype - Terms and conditions
 
-1. **Preamble**: This Agreement, signed on Jan 31, 2018 (hereinafter: Effective Date) governs the relationship between Licensee, a Business Entity, (hereinafter: Licensee) and [Instituto Superior Técnico (IST)](https://tecnico.ulisboa.pt/en/) (hereinafter: Licensor). This Agreement sets the terms, rights, restrictions and obligations on using [Lesion Bounding Boxes (BBs) Prototype](https://github.com/mida-project/prototype-lesion-bbs) (hereinafter: The Software) created and owned by Licensor, as detailed herein.
+1. **Preamble**: This Agreement, signed on Jun. 16, 2021 (hereinafter: Effective Date) governs the relationship between Licensee, a Business Entity, (hereinafter: Licensee) and [Instituto Superior Técnico (IST)](https://tecnico.ulisboa.pt/en/) (hereinafter: Licensor). This Agreement sets the terms, rights, restrictions and obligations on using the [Assertive & Reactive Prototype](https://github.com/mida-project/prototype-assertive-reactive) (hereinafter: The Software) created and owned by Licensor, as detailed herein.
 
 2. **License Grant**: Licensor hereby grants Licensee a Personal, Non-assignable & non-transferable, Pepetual, Non-commercial, Without the rights to create derivative works, Non-exclusive license, all with accordance with the terms set forth and other legal restrictions set forth in 3rd party software used while running Software.
 

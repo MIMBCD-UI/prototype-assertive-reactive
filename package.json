@@ -37,7 +37,7 @@
     "start:webdash": "npx webdash serve",
     "start:local": "npm run build:local && npm run server && start:webdash",
     "start:multi": "npm run build:multi && npm run server && start:webdash",
-    "start:uta10": "npm run build:uta10 && npm run server && start:webdash",
+    "start:uta11": "npm run build:uta11 && npm run server && start:webdash",
     "start": "npm run server"
   },
   "devDependencies": {

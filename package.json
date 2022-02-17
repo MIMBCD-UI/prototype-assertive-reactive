@@ -24,7 +24,7 @@
     "build": "webpack -p &",
     "build:local": "webpack -p &",
     "build:multi": "webpack -p &",
-    "build:uta10": "webpack -p &",
+    "build:uta11": "webpack -p &",
     "create:sl": "touch src/common/studyList.json",
     "clean:dataset": "rimraf dataset/*",
     "clean:studies": "rimraf src/common/studies/*",

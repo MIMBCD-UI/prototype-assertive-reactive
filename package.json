@@ -1,8 +1,8 @@
 {
-  "name": "prototype-lesion-bbs",
+  "name": "prototype-assertive-reactive",
   "version": "0.0.1",
   "main": "src/js/index.js",
-  "description": "Lesion Bounding Boxes (BBs) Prototype",
+  "description": "Assertive and Reactive Assistant Prototype",
   "keywords": [
     "DICOM",
     "WADO",
@@ -10,11 +10,11 @@
     "imaging"
   ],
   "author": "Francisco Maria Calisto",
-  "homepage": "https://github.com/mida-project/prototype-lesion-bbs",
+  "homepage": "https://github.com/MIMBCD-UI/prototype-assertive-reactive",
   "license": "ACADEMIC & COMMERCIAL",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mida-project/prototype-lesion-bbs"
+    "url": "https://github.com/MIMBCD-UI/prototype-assertive-reactive"
   },
   "scripts": {
     "test": "jest",

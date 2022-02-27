@@ -13,10 +13,6 @@ var margin_rgb = [];
 var density = [];
 var density_rgb = [];
 
-var severity = [];
-var severity_percentage = [];
-var severity_rgb = [];
-
 var family_history;
 var family_history_rgb = [];
 var personal_history;
@@ -51,31 +47,29 @@ function show_assistant_covariables() {
     //Get Covariables JSON
     $.getJSON(openPatientUrl, function (data) {
 
+        //Get microcalcifications
+        getMicrocalcifications(data, currentlyActiveImageId);
 
-        //Get Message JSON
-        $.getJSON(messageUrl)
-            .done(function (messageText) {
+        //Get masses
+        getMasses(data, currentlyActiveImageId);
 
-                //Get microcalcifications
-                getMicrocalcifications(data, currentlyActiveImageId);
+        //Get family and personal history
+        getHistory(data);
 
-                //Get masses
-                getMasses(data, currentlyActiveImageId);
-
-                //Get family and personal history
-                getHistory(data);
-
-                //Build message
-                buildMessage();
-
-            })
-
-
+        //Build message
+        buildMessage();
 
     }).error(function () {                                // alert for no json file availability.
-        if (button) {
-            alert("No information available for the current patient!");
-        }
+        $.getJSON(messageUrl)
+            .done(function (messageText) {
+                let msg01 = messageText.assisCovariable[0].covariable_001;
+                let msg02 = messageText.assisCovariable[0].covariable_002;
+                let msg14 = messageText.assisCovariable[0].covariable_014;
+                var msg = msg01 + textColored(msg14 + msg02[2], purple, 0, -1);
+                document.getElementById("assistant_information_test").innerHTML = msg + ".";
+
+                $("[data-bs-toggle='tooltip']").tooltip();
+            })
     })
 
 
@@ -125,21 +119,6 @@ function getMasses(data, currentlyActiveImageId) {
 
                     n_lesions++;
 
-                    var mass_severity = [];
-                    var mass_severity_percentage = [];
-                    var mass_severity_rgb = [];
-
-                    $.each(mass.handles, function (index, point) {
-                        if (!arrayContains(point.severity.level, mass_severity)) {
-                            mass_severity.push(point.severity.level);
-                            mass_severity_percentage.push(point.severity.percentage)
-                            mass_severity_rgb.push(point.severity.color_rgb);
-                        }
-                    })
-
-                    severity.push(mass_severity);
-                    severity_percentage.push(mass_severity_percentage);
-                    severity_rgb.push(mass_severity_rgb);
                 })
             }
 
@@ -340,10 +319,6 @@ function resetCovariables() {
     margin_rgb = [];
     density = [];
     density_rgb = [];
-
-    severity = [];
-    severity_percentage = [];
-    severity_rgb = [];
 
     n_lesions = 0;
 }

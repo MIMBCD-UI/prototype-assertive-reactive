@@ -1,8 +1,8 @@
 // Assistant Switch 
 function assistantSwitch() {
-    
-    if ($("#explainBtn").data("executing")){
-        $("#switchInput").prop("checked",true);
+
+    if ($("#explainBtn").data("executing")) {
+        $("#switchInput").prop("checked", true);
         return;
     }
 
@@ -17,7 +17,7 @@ function assistantSwitch() {
 
     } else {
         assis_animation();
-        if ($(".covariable_n_btn").css("display") != "none"){
+        if ($(".covariable_n_btn").css("display") != "none") {
             $("#explainBtn").trigger("click");
         }
     }
@@ -38,7 +38,7 @@ function assis_animation() {
 }
 
 function assis_explanation_animation_btn() {
-    if ($(".covariable_n_btn").css("display") == "none"){
+    if ($(".covariable_n_btn").css("display") == "none") {
         $('.assistant_block_covariables')
             .animate({
                 height: "100%",
@@ -47,19 +47,20 @@ function assis_explanation_animation_btn() {
             }, 400, function () {
                 $(".covariable_n_btn").slideToggle("slow", "linear", $("#explainBtn").removeData("executing"));
             });
+        return true;
 
-        
-    }else{
-        $(".covariable_n_btn").slideToggle("slow", "linear" , function () {
+    } else {
+        $(".covariable_n_btn").slideToggle("slow", "linear", function () {
             $('.assistant_block_covariables').animate({
                 height: "0px",
                 borderWidth: "0px",
                 padding: "0px"
-            },  400, function () {
+            }, 400, function () {
                 $("#explainBtn").removeData("executing");
-            } );
+            });
         });
-        
+        return false;
+
     }
 }
 

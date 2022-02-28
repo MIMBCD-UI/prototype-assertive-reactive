@@ -1,6 +1,6 @@
 // File Management
 var fileFormat = '.json';
-var pathToSave = '../../dataset/';
+var pathToSave = '../common/findings/';
 
 // Time Stamp
 var currentDate = new Date();

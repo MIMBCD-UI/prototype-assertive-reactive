@@ -40,7 +40,7 @@ function show_assistant_covariables() {
     var currentlyActiveImageId = currentlyActiveImageURL.slice(35, -5) // only the image id itself from the sys (not the json file)
     var openPatient = $('#complete-tab > a').attr("href"); // this will fetch the id of open patien with extra 2 latters before actual id
     var openPatientId = openPatient.slice(2) + '.json'      // slice '#x' and add ".json" at the end
-    var openPatientUrl = '../../dataset/' + openPatientId;  // full URL of open patient
+    var openPatientUrl = '../common/findings/' + openPatientId;  // full URL of open patient
 
     resetCovariables();
 

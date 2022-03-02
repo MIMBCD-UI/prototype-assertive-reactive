@@ -84,17 +84,18 @@ function getMicrocalcifications(data, currentlyActiveImageId) {
         var openImageId = item.imageIds[0].slice(35, -5);
 
         if (openImageId.includes(currentlyActiveImageId)) {
-            $.each(item.probe, function (index, probe) {
-                nofindings_microcalcifications = true;
-                $.each(probe.distribution, function (index, distribution) {
-                    nofindings_microcalcifications = false;
-                    if (!arrayContains(distribution, microcalcifications)) {
-                        microcalcifications.push(distribution);
-                        microcalcifications_rgb.push(probe.color_rgb[index]);
-                        n_lesions++;
-                    }
+            if(item.probe != null)
+                $.each(item.probe, function (index, probe) {
+                    nofindings_microcalcifications = true;
+                    $.each(probe.distribution, function (index, distribution) {
+                        nofindings_microcalcifications = false;
+                        if (!arrayContains(distribution, microcalcifications)) {
+                            microcalcifications.push(distribution);
+                            microcalcifications_rgb.push(probe.color_rgb[index]);
+                            n_lesions++;
+                        }
+                    })
                 })
-            })
         }
 
     }

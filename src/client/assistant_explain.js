@@ -282,6 +282,18 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
                 max_y = hand_y;
               }
             }                                             // first freehand iteration done here
+            var offsetX = 0;
+            var offsetY = 0;
+            if(item.seriesDescription == 'US'){
+              offsetX = 290;
+              offsetY = 20;
+            }
+              
+            min_x += offsetX;
+            max_x += offsetX;
+            min_y += offsetY;
+            max_y += offsetY;
+            
             c.moveTo(min_x - 15, min_y - 15);
             c.lineTo(max_x + 15, min_y - 15);
             c.lineTo(max_x + 15, max_y + 15);

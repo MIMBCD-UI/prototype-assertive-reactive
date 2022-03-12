@@ -160,97 +160,115 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
           // Number of points
           var N = value.length;
 
-          // Add a row of 1s to the 2xN matrix P - so Q is 3xN now.
-          // var Q = $.each(P, function (index, array) {
-          //   array.push(1);
-          // });
-          var Q = P.slice();
-          Q.push(Array(N).fill(1))
+          if (N > 2) {
+            
+            // Add a row of 1s to the 2xN matrix P - so Q is 3xN now.
+            // var Q = $.each(P, function (index, array) {
+            //   array.push(1);
+            // });
+            var Q = P.slice();
+            Q.push(Array(N).fill(1))
 
-          // Initialize
-          var count = 1;
-          var err = 1;
-          //u is an Nx1 vector where each element is 1/N
-          var u = Array(N).fill(1 / N);
+            // Initialize
+            var count = 1;
+            var err = 1;
+            //u is an Nx1 vector where each element is 1/N
+            var u = Array(N).fill(1 / N);
 
-          // Khachiyan Algorithm
-          while (err > 0.0001) {
-            // Matrix multiplication: 
-            // diag(u) : if u is a vector, places the elements of u 
-            // in the diagonal of an NxN matrix of zeros
-            var X = math.multiply(math.multiply(Q, math.diag(u)), math.transpose(Q));
+            // Khachiyan Algorithm
+            while (err > 0.0001) {
+              // Matrix multiplication: 
+              // diag(u) : if u is a vector, places the elements of u 
+              // in the diagonal of an NxN matrix of zeros
+              var X = math.multiply(math.multiply(Q, math.diag(u)), math.transpose(Q));
 
-            // inv(X) returns the matrix inverse of X
-            // diag(M) when M is a matrix returns the diagonal vector of M
-            var M = math.diag(math.multiply(math.multiply(math.transpose(Q), math.inv(X)), Q));
+              // inv(X) returns the matrix inverse of X
+              // diag(M) when M is a matrix returns the diagonal vector of M
+              var M = math.diag(math.multiply(math.multiply(math.transpose(Q), math.inv(X)), Q));
 
-            // Find the value and location of the maximum element in the vector M
-            var maximum = Math.max(...M);
-            var j = M.indexOf(maximum);
-
-
-            // Calculate the step size for the ascent
-            var step_size = (maximum - d - 1) / ((d + 1) * (maximum - 1));
-
-            // Calculate the new_u:
-            // Take the vector u, and multiply all the elements in it by (1-step_size)
-            var new_u = math.multiply((1 - step_size), u);
-
-            // Increment the jth element of new_u by step_size
-            new_u[j] = new_u[j] + step_size;
-
-            // Store the error by taking finding the square root of the SSD 
-            // between new_u and u
-            // The SSD or sum-of-square-differences, takes two vectors 
-            // of the same size, creates a new vector by finding the 
-            // difference between corresponding elements, squaring 
-            // each difference and adding them all together. 
-
-            // So if the vectors were: a = [1 2 3] and b = [5 4 6], then:
-            // SSD = (1-5)^2 + (2-4)^2 + (3-6)^2;
-            // And the norm(a-b) = sqrt(SSD);
-            var err = new_u.map((x, i) => Math.pow(new_u[i] - u[i], 2)).reduce((m, n) => m + n, 0);
+              // Find the value and location of the maximum element in the vector M
+              var maximum = Math.max(...M);
+              var j = M.indexOf(maximum);
 
 
-            // Increment count and replace u
-            count = count + 1;
-            u = new_u;
+              // Calculate the step size for the ascent
+              var step_size = (maximum - d - 1) / ((d + 1) * (maximum - 1));
 
+              // Calculate the new_u:
+              // Take the vector u, and multiply all the elements in it by (1-step_size)
+              var new_u = math.multiply((1 - step_size), u);
+
+              // Increment the jth element of new_u by step_size
+              new_u[j] = new_u[j] + step_size;
+
+              // Store the error by taking finding the square root of the SSD 
+              // between new_u and u
+              // The SSD or sum-of-square-differences, takes two vectors 
+              // of the same size, creates a new vector by finding the 
+              // difference between corresponding elements, squaring 
+              // each difference and adding them all together. 
+
+              // So if the vectors were: a = [1 2 3] and b = [5 4 6], then:
+              // SSD = (1-5)^2 + (2-4)^2 + (3-6)^2;
+              // And the norm(a-b) = sqrt(SSD);
+              err = new_u.map((x, i) => Math.pow(new_u[i] - u[i], 2)).reduce((m, n) => m + n, 0);
+
+
+              // Increment count and replace u
+              count = count + 1;
+              u = new_u;
+
+            }
+
+            // Put the elements of the vector u into the diagonal of a matrix
+            // U with the rest of the elements as 0
+            var U = math.diag(u);
+
+
+            // Compute the A-matrix
+            var A = math.multiply(1 / d, math.inv(math.subtract(math.multiply(math.multiply(P, U), math.transpose(P)), math.multiply(math.multiply(P, u), math.transpose(math.multiply(P, u))))));
+
+
+            var leftSide = math.multiply(math.multiply(P, U), math.transpose(P));
+            var rightSideTmp = math.multiply(P, u);
+            var rightSide = math.multiply(math.transpose([rightSideTmp]), [rightSideTmp]);
+            var Atmp = math.inv(math.subtract(leftSide, rightSide));
+            A = math.multiply(1 / d, Atmp);
+
+            // And the center,
+            var center = math.multiply(P, u);
+
+            var centerX = center[0];
+            var centerY = center[1];
+
+            var { u, v, q } = SVDJS.SVD(A);
+
+            var radiusX = 1 / Math.sqrt(q[0]);
+            var radiusY = 1 / Math.sqrt(q[1]);
+
+            var rotationAngle = Math.acos(v[0][0]);
+            if (v[0][1] < 0)
+              rotationAngle = - rotationAngle;
+
+            c.beginPath();
+            c.ellipse(centerX, centerY, radiusX + 50, radiusY + 50, -rotationAngle, 0, 2 * Math.PI);
+            c.stroke();
+          }else if(N > 1){
+
+            var centerX = (value[0][0] + value[1][0])/2;
+            var centerY = (value[0][1] + value[1][1])/2;
+
+            var radiusX = Math.sqrt( Math.pow(value[0][0] - value[1][0],2) + Math.pow(value[0][1] - value[1][1],2) );
+            var radiusY = 0;
+
+            var rotationAngle = Math.atan2(value[0][1] - value[1][1], value[0][0] - value[1][0]);
+
+            c.beginPath();
+            c.ellipse(centerX, centerY, radiusX + 50, radiusY + 50, rotationAngle, 0, 2 * Math.PI);
+            c.stroke();
           }
 
-          // Put the elements of the vector u into the diagonal of a matrix
-          // U with the rest of the elements as 0
-          var U = math.diag(u);
 
-
-          // Compute the A-matrix
-          var A = math.multiply(1 / d, math.inv(math.subtract(math.multiply(math.multiply(P, U), math.transpose(P)), math.multiply(math.multiply(P, u), math.transpose(math.multiply(P, u))))));
-
-
-          var leftSide = math.multiply(math.multiply(P, U), math.transpose(P));
-          var rightSideTmp = math.multiply(P, u);
-          var rightSide = math.multiply(math.transpose([rightSideTmp]), [rightSideTmp]);
-          var Atmp = math.inv(math.subtract(leftSide, rightSide));
-          A = math.multiply(1 / d, Atmp);
-
-          // And the center,
-          var center = math.multiply(P, u);
-
-          var centerX = center[0];
-          var centerY = center[1];
-
-          var { u, v, q } = SVDJS.SVD(A);
-
-          var radiusX = 1 / Math.sqrt(q[0]);
-          var radiusY = 1 / Math.sqrt(q[1]);
-
-          var rotationAngle = Math.acos(v[0][0]);
-          if (v[0][1] < 0)
-            rotationAngle = - rotationAngle;
-
-          c.beginPath();
-          c.ellipse(centerX, centerY, radiusX + 50, radiusY + 50, -rotationAngle, 0, 2 * Math.PI);
-          c.stroke();
 
         });
 

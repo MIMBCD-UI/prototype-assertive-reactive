@@ -315,7 +315,11 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
             }                                             // first freehand iteration done here
 
 
-            var padding = 15;
+            if (item.seriesDescription == 'US')
+              var padding = 5;
+            else
+              var padding = 15;
+
 
             c.beginPath();
             c.moveTo(min_x - padding, min_y - padding);
@@ -328,7 +332,7 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
             massArray = [freehandItem.shape.type + " shape", freehandItem.margin.type + " margin", freehandItem.density.type + " density"];
             massColorArray = [freehandItem.shape.color_rgb, freehandItem.margin.color_rgb, freehandItem.density.color_rgb];
 
-            writeTextMass(c, massArray, massColorArray, min_x - 15 + 5, min_y - c.measureText('a').fontBoundingBoxDescent - 15 - 10);
+            writeTextMass(c, massArray, massColorArray, min_x, min_y, padding);
 
             c.strokeStyle = '#ffd31d';                     // this styles are valid for both freehand and probe.
             c.setLineDash([Math.min((1 / scale) * 4, 10)]);
@@ -353,19 +357,19 @@ function writeTextCalcification(ctx, text, color, centerX, centerY, radiusX, rad
   var maxY = 0;
   var maxX = 0;
 
-  if(radiusY > radiusX){
-    var initX = centerX + Math.cos(rotationAngle + Math.PI/2) * radiusY;
-    var initY = centerY + Math.sin(rotationAngle + Math.PI/2) * radiusY;
-  }else{
+  if (radiusY > radiusX) {
+    var initX = centerX + Math.cos(rotationAngle + Math.PI / 2) * radiusY;
+    var initY = centerY + Math.sin(rotationAngle + Math.PI / 2) * radiusY;
+  } else {
     var initX = centerX + Math.cos(rotationAngle) * radiusX;
     var initY = centerY + Math.sin(rotationAngle) * radiusX;
   }
 
-  if(initY > centerY){
-    if(radiusY > radiusX){
+  if (initY > centerY) {
+    if (radiusY > radiusX) {
       var initX = centerX + Math.cos(rotationAngle) * radiusY;
       var initY = centerY + Math.sin(rotationAngle) * radiusY;
-    }else{
+    } else {
       var initX = centerX + Math.cos(rotationAngle + Math.PI) * radiusX;
       var initY = centerY + Math.sin(rotationAngle + Math.PI) * radiusX;
     }
@@ -391,50 +395,53 @@ function writeTextCalcification(ctx, text, color, centerX, centerY, radiusX, rad
     maxX + 10,
     maxY + 10);
   ctx.stroke();
-  
+
   ctx.fillStyle = convertColor(color);
   ctx.fillText(text, initX + 5, initY + maxY - ctx.measureText(text).actualBoundingBoxDescent);
 
 }
 
 
-function writeTextMass(ctx, texts, colors, initX, initY) {
+function writeTextMass(ctx, texts, colors, initX, initY, padding) {
+  initX += -padding;
+  initY += -2 * padding;
+
   var currentY = initY;
   var maxX = 0;
 
   for (var i = texts.length - 1; i >= 0; i--) {
     var text = texts[i];
     maxX = Math.max(maxX, ctx.measureText(text).width)
-    currentY -= ctx.measureText(text).fontBoundingBoxAscent + ctx.measureText(text).fontBoundingBoxDescent;
+    currentY = currentY - ctx.measureText(text).fontBoundingBoxAscent - ctx.measureText(text).fontBoundingBoxDescent;
   }
 
   ctx.beginPath();
   ctx.fillStyle = "rgba(29, 28, 28, 0.5)";
   ctx.setLineDash([]);
-  ctx.rect(initX - 5,
-    currentY + ctx.measureText(texts[0]).fontBoundingBoxDescent + ctx.measureText(texts[0]).fontBoundingBoxAscent - ctx.measureText(texts[0]).actualBoundingBoxAscent - 5,
-    maxX + 10,
-    initY - currentY - ctx.measureText(texts.length - 1).fontBoundingBoxDescent + ctx.measureText(texts[texts.length - 1]).actualBoundingBoxDescent);
+  ctx.rect(initX,
+    currentY - padding,
+    maxX + 2 * padding,
+    initY - currentY + padding);
   ctx.fill();
 
-  
+
   ctx.beginPath();
   ctx.strokeStyle = "rgba(37, 37, 37, 0.8)";
   ctx.setLineDash([]);
-  ctx.rect(initX - 5,
-    currentY + ctx.measureText(texts[0]).fontBoundingBoxDescent + ctx.measureText(texts[0]).fontBoundingBoxAscent - ctx.measureText(texts[0]).actualBoundingBoxAscent - 5,
-    maxX + 10,
-    initY - currentY - ctx.measureText(texts.length - 1).fontBoundingBoxDescent + ctx.measureText(texts[texts.length - 1]).actualBoundingBoxDescent);
+  ctx.rect(initX,
+    currentY - padding,
+    maxX + 2 * padding,
+    initY - currentY + padding);
   ctx.stroke();
 
-  currentY = initY;
-  maxX = 0;
+  currentY = initY - ctx.measureText('a').fontBoundingBoxDescent - padding / 2;
+  initX += padding;
 
   for (var i = texts.length - 1; i >= 0; i--) {
     var text = texts[i];
     ctx.fillStyle = convertColor(colors[i]);
     ctx.fillText(text, initX, currentY);
-    currentY -= ctx.measureText(text).fontBoundingBoxAscent + ctx.measureText(text).fontBoundingBoxDescent;
+    currentY = currentY - ctx.measureText(text).fontBoundingBoxAscent - ctx.measureText(text).fontBoundingBoxDescent;
   }
 
 }

@@ -60,16 +60,7 @@ function show_assistant_covariables() {
         buildMessage();
 
     }).error(function () {                                // alert for no json file availability.
-        $.getJSON(messageUrl)
-            .done(function (messageText) {
-                let msg01 = messageText.assisCovariable[0].covariable_001;
-                let msg02 = messageText.assisCovariable[0].covariable_002;
-                let msg14 = messageText.assisCovariable[0].covariable_014;
-                var msg = msg01 + textColored(msg14 + msg02[2], purple, 0, -1);
-                document.getElementById("assistant_information_test").innerHTML = msg + ".";
-
-                $("[data-bs-toggle='tooltip']").tooltip();
-            })
+        buildMessage();
     })
 
 

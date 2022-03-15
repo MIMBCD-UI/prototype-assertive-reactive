@@ -354,8 +354,8 @@ function writeTextCalcification(ctx, text, color, centerX, centerY, radiusX, rad
   var maxX = 0;
 
   if(radiusY > radiusX){
-    var initX = centerX + Math.cos(rotationAngle) * radiusY;
-    var initY = centerY + Math.sin(rotationAngle) * radiusY;
+    var initX = centerX + Math.cos(rotationAngle + Math.PI/2) * radiusY;
+    var initY = centerY + Math.sin(rotationAngle + Math.PI/2) * radiusY;
   }else{
     var initX = centerX + Math.cos(rotationAngle) * radiusX;
     var initY = centerY + Math.sin(rotationAngle) * radiusX;
@@ -363,11 +363,11 @@ function writeTextCalcification(ctx, text, color, centerX, centerY, radiusX, rad
 
   if(initY > centerY){
     if(radiusY > radiusX){
-      var initX = centerX - Math.cos(rotationAngle) * radiusY;
-      var initY = centerY - Math.sin(rotationAngle) * radiusY;
+      var initX = centerX + Math.cos(rotationAngle) * radiusY;
+      var initY = centerY + Math.sin(rotationAngle) * radiusY;
     }else{
-      var initX = centerX - Math.cos(rotationAngle) * radiusX;
-      var initY = centerY - Math.sin(rotationAngle) * radiusX;
+      var initX = centerX + Math.cos(rotationAngle + Math.PI) * radiusX;
+      var initY = centerY + Math.sin(rotationAngle + Math.PI) * radiusX;
     }
   }
 

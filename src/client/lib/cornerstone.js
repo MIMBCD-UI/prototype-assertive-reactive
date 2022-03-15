@@ -1401,6 +1401,7 @@ if(typeof cornerstone === 'undefined'){
 
         // get the canvas context and reset the transform
         var context = enabledElement.canvas.getContext('2d');
+        //console.log("renderColorImage getTransform: " + context.getTransform());
         context.setTransform(1, 0, 0, 1, 0, 0);
 
         // clear the canvas
@@ -1418,14 +1419,14 @@ if(typeof cornerstone === 'undefined'){
         }
 
         // save the canvas context state and apply the viewport properties
-        context.save();
+        //context.save();
         cornerstone.setToPixelCoordinateSystem(enabledElement, context);
 
         var renderCanvas = getRenderCanvas(enabledElement, image, invalidated);
 
         context.drawImage(renderCanvas, 0,0, image.width, image.height, 0, 0, image.width, image.height);
 
-        context.restore();
+        //context.restore();
 
         lastRenderedImageId = image.imageId;
         lastRenderedViewport.windowCenter = enabledElement.viewport.voi.windowCenter;
@@ -1546,6 +1547,7 @@ if(typeof cornerstone === 'undefined'){
 
         // get the canvas context and reset the transform
         var context = enabledElement.canvas.getContext('2d');
+        //console.log("renderGrayscaleImage getTransform: " + context.getTransform());
         context.setTransform(1, 0, 0, 1, 0, 0);
 
         // clear the canvas
@@ -1611,6 +1613,7 @@ if(typeof cornerstone === 'undefined'){
 
         // get the canvas context and reset the transform
         var context = enabledElement.canvas.getContext('2d');
+        console.log("renderWebImage getTransform: " + context.getTransform());
         context.setTransform(1, 0, 0, 1, 0, 0);
 
         // clear the canvas

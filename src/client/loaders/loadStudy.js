@@ -149,10 +149,9 @@ function loadStudy(studyViewer, viewportModel, studyId) {
                 }
             });
 
-            var type = $(this).text();
-            console.log("type: " + type);
+            var type = $(this).text().replace(" ","");
+            
             list_image_ID_viewPort = ["","","",""];
-            list_zoom_viewPort = [0.1,0.1,0.1,0.1];
 
             imageViewer.setLayout(type);
             initViewports();
@@ -293,7 +292,6 @@ function loadStudy(studyViewer, viewportModel, studyId) {
             // Handle thumbnail click
             $(seriesElement).on('click touchstart', function() {
               useItemStack(0, stackIndex);
-              list_of_cs = [];
             }).data('stack', stackIndex);
         });
 
@@ -303,8 +301,8 @@ function loadStudy(studyViewer, viewportModel, studyId) {
             
             var substr = imageId.split("/");
             list_image_ID_viewPort[item] = substr[substr.length - 2];
-            list_zoom_viewPort[item] = 0.1;
             list_of_cs = [];
+            // write_overlay(item, "overlay_top_right", "");
 
             if ($(element).data('waiting')) {
                 imageViewer.viewports[item].find('.overlay-text').remove();
@@ -312,24 +310,18 @@ function loadStudy(studyViewer, viewportModel, studyId) {
             }
             $(element).data('useStack', stack);
 
-           
-
             displayThumbnail(seriesList, $(seriesList).find('.list-group-item')[stack], element, imageViewer.stacks[stack], function(el, stack){
                 if (!$(el).data('setup')) {
                     setupViewport(el, stack, this);
                     setupViewportOverlays(el, data);
-                    theTest(el, data);
+                    theTest(el, data)
                     theTest_covariables(el, data);
                     $(el).data('setup', true);
                 }
-            });
 
-            try{
-                show_assistant_covariables();
-            }
-            catch(err){}
-            
-            
+                
+            });
+            show_assistant_covariables();
             /*cornerstone.loadAndCacheImage(imageId).then(function(image){
                 setupViewport(element, imageViewer.stacks[stack], image);
                 setupViewportOverlays(element, data);
@@ -357,6 +349,10 @@ function loadStudy(studyViewer, viewportModel, studyId) {
                     ol.css({top : oh, left : ow - (ol.width() / 2)});
                 }
             });
+
+            if (list_of_cs.length != 0) {
+                explain_assistant_rerult(false);
+            }
         }
         // Call resize viewer on window resize
         $(window).resize(function() {

@@ -263,8 +263,6 @@ if (typeof cornerstoneTools === 'undefined') {
 
         // update the last points
         lastPoints = cornerstoneTools.copyPoints(currentPoints);
-
-        //explain_assistant_rerult();
     }
 
     function disable(element) {
@@ -4804,7 +4802,6 @@ if (typeof cornerstoneTools === 'undefined') {
         var lista = document.querySelectorAll('.viewport > canvas');
         var elemento = eventData.element.lastChild;
         var indice = Array.prototype.indexOf.call(lista, elemento);
-        list_zoom_viewPort[indice] = viewport.scale;
         
 
         // Now that the scale has been updated, determine the offset we need to apply to the center so we can
@@ -4832,7 +4829,6 @@ if (typeof cornerstoneTools === 'undefined') {
         var lista = document.querySelectorAll('.viewport > canvas');
         var elemento = eventData.element.lastChild;
         var indice = Array.prototype.indexOf.call(lista, elemento);
-        list_zoom_viewPort[indice] = viewport.scale;
 
         var config = cornerstoneTools.zoom.getConfiguration();
         var shift,
@@ -8610,6 +8606,9 @@ Display scroll progress bar across bottom of image.
             right: new cornerstoneMath.Line3(topRight, bottomRight),
             bottom: new cornerstoneMath.Line3(bottomLeft, bottomRight),
         };
+
+        console.log("rect: " + rect);
+
         return rect;
     }
 

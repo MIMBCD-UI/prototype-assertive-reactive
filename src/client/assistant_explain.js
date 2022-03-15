@@ -7,6 +7,7 @@ var list_zoom_viewPort = [0.1, 0.1, 0.1, 0.1];
 var list_places = ["first", "second", "third", "fourth"];
 
 var circles = {};
+var circles_rgb = {};
 var explanationOpen = false;
 
 
@@ -105,10 +106,16 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
         //var canvas = document.querySelector('.viewport > canvas:first-child');  // Make the canvas for freehand and probe-----
         //var canvas = document.querySelectorAll('.viewport > canvas')[0];
         var c = canvas.getContext('2d');                  // c (= context) for both freehand and probe
+        scale = c.getTransform().a;
         c.strokeStyle = '#ffd31d';                     // this styles are valid for both freehand and probe.
         c.lineWidth = Math.min((1 / scale) * 4, 10);
         c.beginPath();
         c.setLineDash([Math.min((1 / scale) * 4, 10)]);
+
+        if (item.seriesDescription == 'US')
+          c.font = "15px Source Sans Pro";
+        else
+          c.font = "60px Source Sans Pro";
 
         var freehand = item.freehand;                     // freehand values of the open image by the image id freehand contains x-y values # freehand contains x-y values
         var probe = item.probe;                           // every probe of the associated image------
@@ -127,7 +134,7 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
             c.stroke();
 
             //Save ellipses for distributions
-            addPointsToEllipse([singleProbe_x, singleProbe_y], singleProbe.distribution);
+            addPointsToEllipse([singleProbe_x, singleProbe_y], singleProbe.distribution, singleProbe.color_rgb);
 
             //Distribution text
             var distributionArray = [];
@@ -143,15 +150,12 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
               distributionRGBArray.push([153, 0, 255]);
             }
 
-            c.font = "100px Arial";
-            // writeText(c, distributionArray, distributionRGBArray, singleProbe_x, singleProbe_y)
-
             list_of_cs.push(c);
           });
         }
 
         //Draw ellipses
-        $.each(circles, function (index, value) {
+        $.each(circles, function (key, value) {
 
           var P = math.transpose(value);
 
@@ -161,7 +165,7 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
           var N = value.length;
 
           if (N > 2) {
-            
+
             // Add a row of 1s to the 2xN matrix P - so Q is 3xN now.
             // var Q = $.each(P, function (index, array) {
             //   array.push(1);
@@ -253,12 +257,17 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
             c.beginPath();
             c.ellipse(centerX, centerY, radiusX + 50, radiusY + 50, -rotationAngle, 0, 2 * Math.PI);
             c.stroke();
-          }else if(N > 1){
 
-            var centerX = (value[0][0] + value[1][0])/2;
-            var centerY = (value[0][1] + value[1][1])/2;
+            writeTextCalcification(c, key, circles_rgb[key], centerX, centerY, radiusX + 50, radiusY + 50, -rotationAngle);
+            c.strokeStyle = '#ffd31d';                     // this styles are valid for both freehand and probe.
+            c.setLineDash([Math.min((1 / scale) * 4, 10)]);
 
-            var radiusX = Math.sqrt( Math.pow(value[0][0] - value[1][0],2) + Math.pow(value[0][1] - value[1][1],2) );
+          } else if (N > 1) {
+
+            var centerX = (value[0][0] + value[1][0]) / 2;
+            var centerY = (value[0][1] + value[1][1]) / 2;
+
+            var radiusX = Math.sqrt(Math.pow(value[0][0] - value[1][0], 2) + Math.pow(value[0][1] - value[1][1], 2));
             var radiusY = 0;
 
             var rotationAngle = Math.atan2(value[0][1] - value[1][1], value[0][0] - value[1][0]);
@@ -266,6 +275,10 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
             c.beginPath();
             c.ellipse(centerX, centerY, radiusX + 50, radiusY + 50, rotationAngle, 0, 2 * Math.PI);
             c.stroke();
+
+            writeTextCalcification(c, key, circles_rgb[key], centerX, centerY, radiusX + 50, radiusY + 50, rotationAngle);
+            c.strokeStyle = '#ffd31d';                     // this styles are valid for both freehand and probe.
+            c.setLineDash([Math.min((1 / scale) * 4, 10)]);
           }
 
 
@@ -300,29 +313,25 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
                 max_y = hand_y;
               }
             }                                             // first freehand iteration done here
-            var offsetX = 0;
-            var offsetY = 0;
-            if(item.seriesDescription == 'US'){
-              offsetX = 290;
-              offsetY = 20;
-            }
-              
-            min_x += offsetX;
-            max_x += offsetX;
-            min_y += offsetY;
-            max_y += offsetY;
-            
-            c.moveTo(min_x - 15, min_y - 15);
-            c.lineTo(max_x + 15, min_y - 15);
-            c.lineTo(max_x + 15, max_y + 15);
-            c.lineTo(min_x - 15, max_y + 15);
-            c.lineTo(min_x - 15, min_y - 15);
+
+
+            var padding = 15;
+
+            c.beginPath();
+            c.moveTo(min_x - padding, min_y - padding);
+            c.lineTo(max_x + padding, min_y - padding);
+            c.lineTo(max_x + padding, max_y + padding);
+            c.lineTo(min_x - padding, max_y + padding);
+            c.lineTo(min_x - padding, min_y - padding);
             c.stroke();
 
-            massArray = [freehandItem.shape.type, freehandItem.margin.type, freehandItem.density.type]
-            massColorArray = [freehandItem.shape.color_rgb, freehandItem.margin.color_rgb, freehandItem.density.color_rgb]
-            c.font = "100px Arial";
-            writeText(c, massArray, massColorArray, max_x, min_y)
+            massArray = [freehandItem.shape.type + " shape", freehandItem.margin.type + " margin", freehandItem.density.type + " density"];
+            massColorArray = [freehandItem.shape.color_rgb, freehandItem.margin.color_rgb, freehandItem.density.color_rgb];
+
+            writeTextMass(c, massArray, massColorArray, min_x - 15 + 5, min_y - c.measureText('a').fontBoundingBoxDescent - 15 - 10);
+
+            c.strokeStyle = '#ffd31d';                     // this styles are valid for both freehand and probe.
+            c.setLineDash([Math.min((1 / scale) * 4, 10)]);
 
             list_of_cs.push(c);
           }
@@ -340,26 +349,108 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
   });
 }
 
-function writeText(ctx, texts, colors, initX, initY) {
-  for (var i = 0; i < texts.length; ++i) {
+function writeTextCalcification(ctx, text, color, centerX, centerY, radiusX, radiusY, rotationAngle) {
+  var maxY = 0;
+  var maxX = 0;
+
+  if(radiusY > radiusX){
+    var initX = centerX + Math.cos(rotationAngle) * radiusY;
+    var initY = centerY + Math.sin(rotationAngle) * radiusY;
+  }else{
+    var initX = centerX + Math.cos(rotationAngle) * radiusX;
+    var initY = centerY + Math.sin(rotationAngle) * radiusX;
+  }
+
+  if(initY > centerY){
+    if(radiusY > radiusX){
+      var initX = centerX - Math.cos(rotationAngle) * radiusY;
+      var initY = centerY - Math.sin(rotationAngle) * radiusY;
+    }else{
+      var initX = centerX - Math.cos(rotationAngle) * radiusX;
+      var initY = centerY - Math.sin(rotationAngle) * radiusX;
+    }
+  }
+
+  maxX = Math.max(maxX, ctx.measureText(text).width);
+  maxY = Math.max(maxY, ctx.measureText(text).actualBoundingBoxAscent + ctx.measureText(text).actualBoundingBoxDescent)
+
+  ctx.beginPath();
+  ctx.fillStyle = "rgba(29, 28, 28, 0.5)";
+  ctx.setLineDash([]);
+  ctx.rect(initX,
+    initY - 5,
+    maxX + 10,
+    maxY + 10);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.strokeStyle = "rgba(37, 37, 37, 0.5)";
+  ctx.setLineDash([]);
+  ctx.rect(initX,
+    initY - 5,
+    maxX + 10,
+    maxY + 10);
+  ctx.stroke();
+  
+  ctx.fillStyle = convertColor(color);
+  ctx.fillText(text, initX + 5, initY + maxY - ctx.measureText(text).actualBoundingBoxDescent);
+
+}
+
+
+function writeTextMass(ctx, texts, colors, initX, initY) {
+  var currentY = initY;
+  var maxX = 0;
+
+  for (var i = texts.length - 1; i >= 0; i--) {
+    var text = texts[i];
+    maxX = Math.max(maxX, ctx.measureText(text).width)
+    currentY -= ctx.measureText(text).fontBoundingBoxAscent + ctx.measureText(text).fontBoundingBoxDescent;
+  }
+
+  ctx.beginPath();
+  ctx.fillStyle = "rgba(29, 28, 28, 0.5)";
+  ctx.setLineDash([]);
+  ctx.rect(initX - 5,
+    currentY + ctx.measureText(texts[0]).fontBoundingBoxDescent + ctx.measureText(texts[0]).fontBoundingBoxAscent - ctx.measureText(texts[0]).actualBoundingBoxAscent - 5,
+    maxX + 10,
+    initY - currentY - ctx.measureText(texts.length - 1).fontBoundingBoxDescent + ctx.measureText(texts[texts.length - 1]).actualBoundingBoxDescent);
+  ctx.fill();
+
+  
+  ctx.beginPath();
+  ctx.strokeStyle = "rgba(37, 37, 37, 0.8)";
+  ctx.setLineDash([]);
+  ctx.rect(initX - 5,
+    currentY + ctx.measureText(texts[0]).fontBoundingBoxDescent + ctx.measureText(texts[0]).fontBoundingBoxAscent - ctx.measureText(texts[0]).actualBoundingBoxAscent - 5,
+    maxX + 10,
+    initY - currentY - ctx.measureText(texts.length - 1).fontBoundingBoxDescent + ctx.measureText(texts[texts.length - 1]).actualBoundingBoxDescent);
+  ctx.stroke();
+
+  currentY = initY;
+  maxX = 0;
+
+  for (var i = texts.length - 1; i >= 0; i--) {
     var text = texts[i];
     ctx.fillStyle = convertColor(colors[i]);
-    ctx.fillText(text, initX, initY);
-    initX += ctx.measureText(text).width;
+    ctx.fillText(text, initX, currentY);
+    currentY -= ctx.measureText(text).fontBoundingBoxAscent + ctx.measureText(text).fontBoundingBoxDescent;
   }
+
 }
 
 function convertColor(color) {
   return "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
 }
 
-function addPointsToEllipse(calcification, distributions) {
+function addPointsToEllipse(calcification, distributions, colors) {
   if (distributions != null && distributions.length > 0) {
     distributions.forEach(d => {
       if (d in circles) {
         circles[d].push(calcification);
       } else {
         circles[d] = [calcification];
+        circles_rgb[d] = colors[distributions.indexOf(d)];
       }
     });
   }
@@ -368,6 +459,7 @@ function addPointsToEllipse(calcification, distributions) {
       circles["no findings"].push(calcification);
     } else {
       circles["no findings"] = [calcification];
+      circles_rgb["no findings"] = [153, 0, 255];
     }
   }
 

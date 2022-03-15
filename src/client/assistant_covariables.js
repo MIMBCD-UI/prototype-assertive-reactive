@@ -131,11 +131,15 @@ function getMasses(data, currentlyActiveImageId) {
 }
 
 function getHistory(data) {
-    family_history = data.rawData.familyHistory.value;
-    family_history_rgb = data.rawData.familyHistory.color_rgb;
+    if (data.rawData.familyHistory != null) {
+        family_history = data.rawData.familyHistory.value;
+        family_history_rgb = data.rawData.familyHistory.color_rgb;
+    }
 
-    personal_history = data.rawData.personalHistory.value;
-    personal_history_rgb = data.rawData.personalHistory.color_rgb;
+    if (data.rawData.personalHistory != null) {
+        personal_history = data.rawData.personalHistory.value;
+        personal_history_rgb = data.rawData.personalHistory.color_rgb;
+    }
 }
 
 function buildMessage() {

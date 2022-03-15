@@ -115,9 +115,12 @@ src/common/studyList.json
 
 # Dataset Information
 dataset/*
+!dataset/.gitkeep
 
 # Findings Information
 src/common/findings/*
+!src/common/findings/.gitkeep
 
 # BIRADS Information
 src/common/outputs/*
+!src/common/outputs/.gitkeep

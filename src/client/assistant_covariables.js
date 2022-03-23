@@ -12,6 +12,8 @@ var margin = [];
 var margin_rgb = [];
 var density = [];
 var density_rgb = [];
+var mass_findings = [];
+
 
 var family_history;
 var family_history_rgb = [];
@@ -102,15 +104,25 @@ function getMasses(data, currentlyActiveImageId) {
         if (openImageId.includes(currentlyActiveImageId)) {
             if (item.hasOwnProperty("freehand")) {
                 $.each(item.freehand, function (index, mass) {
-                    shape.push(mass.shape.type);
-                    shape_rgb.push(mass.shape.color_rgb);
-                    margin.push(mass.margin.type);
-                    margin_rgb.push(mass.margin.color_rgb);
-                    density.push(mass.density.type);
-                    density_rgb.push(mass.density.color_rgb);
+                    var mass_findings_bool = false;
+                    if (mass.shape != null) {
+                        shape.push(mass.shape.type);
+                        shape_rgb.push(mass.shape.color_rgb);
+                        mass_findings_bool = true;
+                    }
+                    if (mass.margin != null) {
+                        margin.push(mass.margin.type);
+                        margin_rgb.push(mass.margin.color_rgb);
+                        mass_findings_bool = true;
+                    }
+                    if (mass.density != null) {
+                        density.push(mass.density.type);
+                        density_rgb.push(mass.density.color_rgb);
+                        mass_findings_bool = true;
+                    }
 
+                    mass_findings.push(mass_findings_bool);
                     n_lesions++;
-
                 })
             }
 
@@ -189,7 +201,7 @@ function buildMessage() {
         }
 
 
-        $.each(shape, function (index, mass) {
+        $.each(mass_findings, function (index, mass) {
 
             if (n_lesion == 0)
                 var lesion_msg = msg03[n_lesion][pluralOrSingular(n_lesions)] + msg04[0] + msg05[0] + msg06;
@@ -198,18 +210,18 @@ function buildMessage() {
 
 
             var mass_type_lesions = [];
-            if (shape[index] != "")
-                mass_type_lesions.push(textColored(shape[index] + msg07[0], shape_rgb[index], 0,getLesionValue(shape_rgb[index])))
-            if (margin[index] != "")
-                mass_type_lesions.push(textColored(margin[index] + msg07[1], margin_rgb[index], 0,getLesionValue(margin_rgb[index])))
-            if (density[index] != "")
-                mass_type_lesions.push(textColored(density[index] + msg07[2], density_rgb[index], 0,getLesionValue(density_rgb[index])))
+            if (shape[index] != null)
+                mass_type_lesions.push(textColored(shape[index] + msg07[0], shape_rgb[index], 0, getLesionValue(shape_rgb[index])))
+            if (margin[index] != null)
+                mass_type_lesions.push(textColored(margin[index] + msg07[1], margin_rgb[index], 0, getLesionValue(margin_rgb[index])))
+            if (density[index] != null)
+                mass_type_lesions.push(textColored(density[index] + msg07[2], density_rgb[index], 0, getLesionValue(density_rgb[index])))
 
             if (mass_type_lesions.length == 1)
                 lesion_msg += mass_type_lesions[0];
             else if (mass_type_lesions.length == 2)
                 lesion_msg += mass_type_lesions[0] + msg08[1] + mass_type_lesions[1];
-            else if(mass_type_lesions.length == 3)
+            else if (mass_type_lesions.length == 3)
                 lesion_msg += mass_type_lesions[0] + msg08[0] + mass_type_lesions[1] + msg08[1] + mass_type_lesions[2];
             else
                 lesion_msg += textColored(msg18, purple, 0, -1);
@@ -315,6 +327,7 @@ function resetCovariables() {
     margin_rgb = [];
     density = [];
     density_rgb = [];
+    mass_findings = [];
 
     n_lesions = 0;
 }

@@ -78,7 +78,7 @@ function explain_assistant_rerult(button = true) {
       if (list_image_ID_viewPort[i] == "") {
         continue;
       }
-      bounding_box(openPatientUrl, currentlyActiveImageURL, canvas[i], Math.max(list_zoom_viewPort[i], 0.1), button, list_places[i]);
+      bounding_box(openPatientUrl, currentlyActiveImageId, canvas[i], Math.max(list_zoom_viewPort[i], 0.1), button, list_places[i]);
     }
 
     if (!explanationOpen)
@@ -124,8 +124,8 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
           var probe = item.probe;                           // every probe of the associated image------
           if (typeof (probe) == 'undefined' && typeof (freehand) == 'undefined') {
             if (button) {
-              global_alert = 'No information available for the ' + pos + ' image!'
-              alert('No information available for the ' + pos + ' image!');
+              global_alert = 'No information available for this image!'
+              alert('No information available for this image!');
             }
           }
           if (typeof (probe) != 'undefined') {
@@ -183,7 +183,7 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
               var u = Array(N).fill(1 / N);
 
               // Khachiyan Algorithm
-              while (err > 0.0001) {
+              while (err > 0.001) {
                 // Matrix multiplication: 
                 // diag(u) : if u is a vector, places the elements of u 
                 // in the diagonal of an NxN matrix of zeros
@@ -334,10 +334,12 @@ function bounding_box(openPatientUrl, currentlyActiveImageId, canvas, scale, but
                 c.lineTo(min_x - padding, min_y - padding);
                 c.stroke();
 
-                // massArray = [freehandItem.shape.type + " shape", freehandItem.margin.type + " margin", freehandItem.density.type + " density"];
-                // massColorArray = [freehandItem.shape.color_rgb, freehandItem.margin.color_rgb, freehandItem.density.color_rgb];
+                mass = getMassProperties(freehandItem);
+                massArray = mass[0];
+                massColorArray = mass[1];
 
-                // writeTextMass(c, massArray, massColorArray, min_x, min_y, padding);
+                if (massArray.length > 0)
+                  writeTextMass(c, massArray, massColorArray, min_x, min_y, padding);
 
                 c.strokeStyle = '#ffd31d';                     // this styles are valid for both freehand and probe.
                 c.setLineDash([Math.min((1 / scale) * 4, 10)]);
@@ -384,6 +386,11 @@ function writeTextCalcification(ctx, text, color, centerX, centerY, radiusX, rad
       var initX = centerX + Math.cos(rotationAngle + Math.PI) * radiusX;
       var initY = centerY + Math.sin(rotationAngle + Math.PI) * radiusX;
     }
+  }
+
+  if (initX < centerX) {
+    var initX = centerX + Math.cos(rotationAngle + Math.PI) * radiusX;
+    var initY = centerY + Math.sin(rotationAngle + Math.PI) * radiusX;
   }
 
   maxX = Math.max(maxX, ctx.measureText(text).width);
@@ -455,6 +462,28 @@ function writeTextMass(ctx, texts, colors, initX, initY, padding) {
     currentY = currentY - ctx.measureText(text).fontBoundingBoxAscent - ctx.measureText(text).fontBoundingBoxDescent;
   }
 
+}
+
+function getMassProperties(mass) {
+  var massArray = [];
+  var massArrayRGB = [];
+
+  if (mass.shape != null) {
+    massArray.push(mass.shape.type + " shape");
+    massArrayRGB.push(mass.shape.color_rgb);
+  }
+
+  if (mass.margin != null) {
+    massArray.push(mass.margin.type + " margin");
+    massArrayRGB.push(mass.margin.color_rgb);
+  }
+
+  if (mass.density != null) {
+    massArray.push(mass.density.type + " density");
+    massArrayRGB.push(mass.density.color_rgb);
+  }
+
+  return [massArray, massArrayRGB]
 }
 
 function convertColor(color) {

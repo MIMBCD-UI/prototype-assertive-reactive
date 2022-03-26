@@ -37,11 +37,13 @@ function disableXAITools() {
   });
 }
 
-function explain_assistant_rerult(button = true) {
+function explain_assistant_rerult(button = true, onlyBB) {
 
-  if ($("#explainBtn").data("executing")) return;
 
-  $("#explainBtn").data("executing", true);
+  if (onlyBB == undefined) if ($("#explainBtn").data("executing")) return;
+
+  if (onlyBB == undefined)
+    $("#explainBtn").data("executing", true);
 
   var stack = toolData.data[0];
   var currentlyActiveImageURL = stack.imageIds[stack.currentImageIdIndex];          // gives the active image of the system (not the json)
@@ -61,10 +63,13 @@ function explain_assistant_rerult(button = true) {
     global_var_explain = false;
     disableXAITools();
 
-    if (explanationOpen)
-      explanationOpen = assis_explanation_animation_btn();
-    else
-      $("#explainBtn").removeData("executing");
+    if (onlyBB == undefined) {
+      if (explanationOpen)
+        explanationOpen = assis_explanation_animation_btn();
+      else
+        $("#explainBtn").removeData("executing");
+    }
+
   }
   else {
     global_var_explain = true;
@@ -81,10 +86,13 @@ function explain_assistant_rerult(button = true) {
       bounding_box(openPatientUrl, currentlyActiveImageId, canvas[i], Math.max(list_zoom_viewPort[i], 0.1), button, list_places[i]);
     }
 
-    if (!explanationOpen)
-      explanationOpen = assis_explanation_animation_btn();
-    else
-      $("#explainBtn").removeData("executing");
+    if (onlyBB == undefined) {
+      if (!explanationOpen)
+        explanationOpen = assis_explanation_animation_btn();
+      else
+        $("#explainBtn").removeData("executing");
+    }
+
   }
 }
 

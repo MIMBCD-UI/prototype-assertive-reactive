@@ -1,4 +1,4 @@
-# Lesion Bounding Boxes (BBs) Prototype
+# Assertive and Reactive Prototype
 
 <img src="https://github.com/MIMBCD-UI/prototype-multi-modality/blob/master/assets/banner.png?raw=true"/>
 
@@ -7,7 +7,7 @@
 [![Gitter](https://img.shields.io/gitter/room/gitterHQ/gitter.svg?style=flat-square)](https://gitter.im/opprTeam)
 [![Twitter](https://flat.badgen.net/badge/icon/twitter?icon=twitter&label)](https://twitter.com/opprGroup)
 
-In this repository, we aim to develop a prototype to test and validate the Bounding Boxes (BBs) of lesion contours within several diagnostic scenarios across medical imaging technologies. The prototype is based on an early developed version of the [Breast Screening Prototype](https://github.com/MIMBCD-UI/prototype-breast-screening). To test and validate the prototype, initial [User Research](https://github.com/mida-project/meta/wiki/User-Research) studies with the prototype are [linked](https://github.com/MIMBCD-UI/meta/wiki/User-Research#test-10-pre-master-thesis-). A number of advantages over the introduction of our novel proposed type of interactive techniques appear to be present. Furthermore, we develop the prototype under the [MIDA](https://mida-project.github.io/). The [MIDA](https://mida-project.github.io/) project is a research project that deals with the use of a recently proposed technique in literature: [Deep Convolutional Neural Networks (CNNs)](https://en.wikipedia.org/wiki/Convolutional_neural_network). These deep networks will incorporate information from several different modes by a User Interface (UI) implemented based on our later [prototypes](https://github.com/mida-project/meta/wiki/Prototypes). We also have several demos to see in our [YouTube Channel](https://www.youtube.com/channel/UCGSCL9RETBck4cwP4iJzQXQ), please follow us.
+Welcome to the results repository for our paper "[*Assertiveness-based Agent Communication for a Personalized Medicine on Medical Imaging Diagnosis*](https://doi.org/10.1145/3544548.3580682)" ([10.1145/3544548.3580682](https://doi.org/10.1145/3544548.3580682)) in [proceedings of the 2023 CHI Conference on Human Factors in Computing Systems](https://dl.acm.org/doi/proceedings/10.1145/3544548) ([CHI '23](https://chi2023.acm.org/)) presented during the "[AI in Health](https://programs.sigchi.org/chi/2023/program/session/97368)" track. In this repository, we aim to develop a prototype of the assertive and reactive trial for the [Assertiveness-based BreastScreening-AI](https://doi.org/10.1145/3544548.3580682) condition. The prototype is based on an early developed version of the [BreastScreening](https://github.com/MIMBCD-UI/prototype-breast-screening) prototype. To test and validate the prototype, initial [User Research](https://github.com/mida-project/meta/wiki/User-Research) studies with the prototype are [linked](https://github.com/MIMBCD-UI/meta/wiki/User-Research#test-11-assertiveness-based-assistant-pre-master-thesis-of-jo%C3%A3o-fernandes-) ([10.13140/RG.2.2.22989.92645/1](http://dx.doi.org/10.13140/RG.2.2.22989.92645/1)). A number of advantages over the introduction of our novel proposed type of interactive techniques appear to be evident. Furthermore, we develop the prototype the [MIDA](https://mida-project.github.io/) project as well. The [MIDA](https://mida-project.github.io/) project is a research project that deals with the use of a recently proposed technique in literature: [Deep Convolutional Neural Networks (CNNs)](https://en.wikipedia.org/wiki/Convolutional_neural_network). These deep networks will incorporate information from several different modes by a User Interface (UI) implemented based on our later [prototypes](https://github.com/mida-project/meta/wiki/Prototypes). We also have several [channels](https://github.com/MIMBCD-UI/meta/wiki/Channels) and demos to see in our [YouTube Channel](https://www.youtube.com/channel/UCPz4aTIVHekHXTxHTUOLmXw), please follow us!
 
 <a href="https://www.patreon.com/oppr" target="_blank">
 <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
@@ -45,7 +45,7 @@ cd dicom-server/
 npm install
 ```
 
-1.2.2. You can now **Run** the project, just follow the [next section](https://github.com/mida-project/prototype-lesion-bbs#run).
+1.2.2. You can now **Run** the project, just follow the [next section](#run).
 
 #### Run
 
@@ -81,20 +81,20 @@ NOTE: If you need some help see the [Demo](https://youtu.be/tkzpT3KpY2A).
 
 ### Main Server
 
-Our main server uses [NodeJS](https://nodejs.org/en/) and has several [dependencies](https://github.com/mida-project/prototype-lesion-bbs/blob/master/package.json). For the following steps you must have already installed both [NodeJS](https://nodejs.org/en/) and [`npm`](https://www.npmjs.com/) in your machine.
+Our main server uses [NodeJS](https://nodejs.org/en/) and has several [dependencies](package.json). For the following steps you must have already installed both [NodeJS](https://nodejs.org/en/) and [`npm`](https://www.npmjs.com/) in your machine.
 
 #### Clone
 
 2.1.1. Clone the project repository:
 
 ```
-git clone git@github.com:mida-project/prototype-lesion-bbs.git
+git clone git@github.com:MIMBCD-UI/prototype-assertive-reactive.git
 ```
 
 2.1.2. Go inside the project folder:
 
 ```
-cd prototype-lesion-bbs/
+cd prototype-assertive-reactive/
 ```
 
 #### Install
@@ -105,17 +105,17 @@ cd prototype-lesion-bbs/
 npm install
 ```
 
-2.2.2. You can now **Run** the project, just follow the [next section](https://github.com/mida-project/prototype-lesion-bbs#run).
+2.2.2. You can now **Run** the project, just follow the [next section](#run).
 
 #### Run
 
 2.3.1. Inside the project folder:
 
 ```
-cd prototype-lesion-bbs/
+cd prototype-assertive-reactive/
 ```
 
-2.3.2. If you have already run the DICOM Server on a [previous section](https://github.com/mida-project/prototype-lesion-bbs#dicom-server), please jump to the **2.3.3.** point, otherwise do:
+2.3.2. If you have already run the DICOM Server on a [previous section](#dicom-server), please jump to the **2.3.3.** point, otherwise do:
 
 ```
 npm run dicom-server
@@ -161,31 +161,39 @@ The current information will summarize the essential parts of this repository. I
 
 The following list, represents the set of related repositories for the presented one:
 
-- [`prototype-xai-vis`](https://github.com/MIMBCD-UI/prototype-xai-vis)
+- [`sa-uta11-results`](https://github.com/MIMBCD-UI/sa-uta11-results)
 
-- [`prototype-scalable-interactions`](https://github.com/MIMBCD-UI/prototype-scalable-interactions)
+- [`dataset-uta11-dicom`](https://github.com/MIMBCD-UI/dataset-uta11-dicom)
 
-- [`prototype-rlc`](https://github.com/mida-project/prototype-rlc)
+- [`dataset-uta11-findings`](https://github.com/MIMBCD-UI/dataset-uta11-findings)
 
-- [`dataset-tc`](https://github.com/MIMBCD-UI/dataset-tc)
+- [`dataset-uta11-rates`](https://github.com/MIMBCD-UI/dataset-uta11-rates)
 
-- [`dataset-uta10-dicom`](https://github.com/MIMBCD-UI/dataset-uta10-dicom)
+- [`prototype-breast-screening`](https://github.com/MIMBCD-UI/prototype-breast-screening)
 
-- [`dataset-uta10-annotations`](https://github.com/MIMBCD-UI/dataset-uta10-annotations)
+- [`prototype-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-assertive-proactive)
+
+- [`prototype-non-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-proactive)
+
+- [`prototype-non-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-reactive)
 
 ### Dataset Resources
 
-For the [User Test Analysis 8 (UTA8)](https://github.com/mida-project/meta/wiki/User-Research#test-8-explainable-assistant-introduction-) of this project we generated a combination of interesting [datasets](https://www.kaggle.com/MIMBCD-UI). To publish our [datasets](https://www.kaggle.com/MIMBCD-UI) we used a well known platform called [Kaggle](https://www.kaggle.com). To access our project's [Profile Page](https://www.kaggle.com/MIMBCD-UI) just follow the [link](https://www.kaggle.com/MIMBCD-UI). We are also working on several other [User Research](https://github.com/mida-project/meta/wiki/User-Research) studies, while this repository is being an important asset to them.
+To publish our datasets we used a well known platform called [Kaggle](https://www.kaggle.com). To access these datasets just follow the [`uta4-sm-vs-mm-sheets`](https://www.kaggle.com/datasets/MIMBCD-UI/uta4-sm-vs-mm-sheets) dataset, as an example. Here, you will find all of our published datasets and any associated information, such as descriptions and download links. We are also working on several other [User Research](https://github.com/mida-project/meta/wiki/User-Research) studies, while this repository is being an important asset to them.
 
 ## About
 
-For more information about the [MIDA](https://mida-project.github.io/) Project just follow the [link](https://github.com/mida-project/meta). Pieces of information about details of this repository are also in a [wiki](https://github.com/mida-project/prototype-lesion-bbs/wiki). This prototype was developed using several libraries and dependencies. Despite that all libraries had their importance and supported the development, one of it was of chief importance. The [CornerstoneJS](https://cornerstonejs.org/) library and [secondary libraries](https://github.com/cornerstonejs), respectively, are supporting this prototype. We [Acknowledge](https://github.com/mida-project/prototype-lesion-bbs/blob/master/README.md#acknowledgments) all people involved in the path.
+For more information about the [MIDA](https://mida-project.github.io/) project just follow the [link](https://github.com/mida-project/meta). Pieces of information about details of this repository are also in a [wiki](https://github.com/MIMBCD-UI/prototype-assertive-reactive/wiki). This prototype was developed using several libraries and dependencies. Despite that all libraries had their importance and supported the development, one of it was of chief importance. The [CornerstoneJS](https://cornerstonejs.org/) library and [secondary libraries](https://github.com/cornerstonejs), respectively, are supporting this prototype. We [Acknowledge](#acknowledgments) all people involved in the path.
 
 ### License
 
-Copyright © 2019 [Instituto Superior Técnico (IST)](https://tecnico.ulisboa.pt/)
+Copyright &copy; 2021 [Instituto Superior Técnico](http://tecnico.ulisboa.pt/)
 
-The [`prototype-lesion-bbs`](https://github.com/mida-project/prototype-lesion-bbs) repository is distributed under the terms of both [Academic License](https://github.com/mida-project/prototype-lesion-bbs/blob/master/ACADEMIC.md) and [Commercial License](https://github.com/mida-project/prototype-lesion-bbs/blob/master/COMMERCIAL.md), for academic and commercial purpose, respectively. For more information regarding the [License](https://github.com/mida-project/prototype-lesion-bbs/blob/master/LICENSE.md) of the hereby repository, just follow both [ACADEMIC](https://github.com/mida-project/prototype-lesion-bbs/blob/master/ACADEMIC.md) and [COMMERCIAL](https://github.com/mida-project/prototype-lesion-bbs/blob/master/COMMERCIAL.md) files.
+[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
+
+The [`prototype-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-assertive-reactive) repository is distributed under the terms of both [Academic License](ACADEMIC.md) for academic purpose and [Commercial License](COMMERCIAL.md) for commercial purpose, as well as under the [CC-BY-SA-4.0](COPYING.md) copyright. The content of the present repository has obtained the patent right of [World Intellectual Property Organization (WIPO)](https://www.wipo.int) invention. Moreover, the hereby invention for this repository is under protection of the patent number **[WO2022071818A1](https://patents.google.com/patent/WO2022071818A1)** with the application number **PCT/PT2021/050029**. The title of the invention is "*Computational Method and System for Improved Identification of Breast Lesions*", registered under the WO patent office.
+
+See [ACADEMIC](ACADEMIC.md) and [COMMERCIAL](COMMERCIAL.md) for details. For more information about the [MIMBCD-UI](https://mimbcd-ui.github.io/) Project just follow the [link](https://github.com/MIMBCD-UI/meta).
 
 ### Acknowledgments
 
@@ -209,23 +217,46 @@ A special thanks to [Chris Hafey](https://www.linkedin.com/in/chafey/), the prop
 
 ### Team
 
-Ou team brings everything together sharing ideas and the same purpose, developing even better work. In this section, we will nominate the full list of important people for this repository, as well as respective links.
+Our team brings everything together sharing ideas and the same purpose, developing even better work. In this section, we will nominate the full list of important people for this repository, as well as respective links.
 
 #### Authors
 
-- [Francisco Maria Calisto](https://web.tecnico.ulisboa.pt/francisco.calisto/) [[GitHub](https://github.com/FMCalisto) | [Linkedin](https://linkedin.com/in/fmcalisto/)]
+* Francisco Maria Calisto [ [Academic Website](https://web.tecnico.ulisboa.pt/francisco.calisto) | [ResearchGate](https://www.researchgate.net/profile/Francisco_Maria_Calisto) | [GitHub](https://github.com/FMCalisto) | [Twitter](https://twitter.com/FMCalisto) | [LinkedIn](https://www.linkedin.com/in/fmcalisto/) ]
 
-#### Maintainers
+* João Fernandes [ [ResearchGate](https://www.researchgate.net/profile/Joao-Fernandes-102) ]
 
-- [Hugo Lencastre]() [[GitHub](https://github.com/HugoLencastre) | [Linkedin]()]
+* Margarida Morais [ [ResearchGate](https://www.researchgate.net/profile/Margarida_Morais2) ]
 
-- [Nádia Mourão]() [[GitHub](https://github.com/nadia-mourao) | [Linkedin]()]
+* Carlos Santiago [ [ResearchGate](https://www.researchgate.net/profile/Carlos-Santiago-4) ]
+
+* João Maria Abrantes [ [ResearchGate](https://www.researchgate.net/profile/Joao-Abrantes-2) ]
+
+* Nuno Nunes [ [ResearchGate](https://www.researchgate.net/profile/Nuno_Nunes2) ]
+
+* Jacinto C. Nascimento [ [ResearchGate](https://www.researchgate.net/profile/Jacinto_Nascimento) ]
+
+#### Promoters
+
+* Hugo Lencastre
+* Nádia Mourão
+* Miguel Bastos
+* Pedro Diogo
+* João Bernardo
+* Madalena Pedreira
+* Mauro Machado
+
+#### Companions
+
+* Bruno Dias
+* Bruno Oliveira
+* Luís Ribeiro Gomes
+* Pedro Miraldo
 
 ### Supporting
 
 Our organization is a non-profit organization. However, we have many needs across our activity. From infrastructure to service needs, we need some time and contribution, as well as help, to support our team and projects.
 
-<span class="image">
+<span>
   <a href="https://opencollective.com/oppr" target="_blank">
     <img src="https://opencollective.com/oppr/tiers/backer.svg" width="220">
   </a>
@@ -235,11 +266,17 @@ Our organization is a non-profit organization. However, we have many needs acros
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 
+<span class="image">
+  <a href="graphs/contributors">
+    <img src="https://opencollective.com/oppr/contributors.svg?width=890" />
+  </a>
+</span>
+
 #### Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/oppr#backer)]
 
-<span class="image">
+<span>
   <a href="https://opencollective.com/oppr#backers" target="_blank">
     <img src="https://opencollective.com/oppr/backers.svg?width=890">
   </a>
@@ -249,7 +286,7 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/oppr#sponsor)]
 
-<span class="image">
+<span>
   <a href="https://opencollective.com/oppr/sponsor/0/website" target="_blank">
     <img src="https://opencollective.com/oppr/sponsor/0/avatar.svg">
   </a>
@@ -257,82 +294,87 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 <br />
 
-<span class="image">
+<span>
   <a href="http://www.fct.pt/" title="FCT" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/fct_footer.png" alt="fct" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/fct_footer.png?raw=true" alt="fct" width="20%" />
   </a>
 </span>
-<span class="image">
+<span>
   <a href="https://www.fccn.pt/en/" title="FCCN" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/fccn_footer.png" alt="fccn" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/fccn_footer.png?raw=true" alt="fccn" width="20%" />
   </a>
 </span>
-<span class="image">
+<span>
   <a href="https://www.ulisboa.pt/en/" title="ULisboa" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/ulisboa_footer.png" alt="ulisboa" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/ulisboa_footer.png?raw=true" alt="ulisboa" width="20%" />
   </a>
 </span>
-<span class="image">
+<span>
   <a href="http://tecnico.ulisboa.pt/" title="IST" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/ist_footer.png" alt="ist" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/ist_footer.png?raw=true" alt="ist" width="20%" />
   </a>
 </span>
-<span class="image">
+<span>
   <a href="http://hff.min-saude.pt/" title="HFF" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/hff_footer.png" alt="hff" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/hff_footer.png?raw=true" alt="hff" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="https://www.chtmad.min-saude.pt/" title="CHTMAD" target="_blank">
+    <img src="https://raw.githubusercontent.com/MIMBCD-UI/meta/master/brands/chtmad_footer.png" alt="chtmad" width="10%" />
   </a>
 </span>
 
 ##### Departments
 
-<span class="image">
+<span>
   <a href="http://dei.tecnico.ulisboa.pt" title="DEI" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/dei_footer.png" alt="dei" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/dei_footer.png?raw=true" alt="dei" width="20%" />
   </a>
 </span>
-<span class="image">
+<span>
   <a href="http://deec.tecnico.ulisboa.pt" title="DEEC" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/deec_footer.png" alt="dei" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/deec_footer.png?raw=true" alt="dei" width="20%" />
   </a>
 </span>
 
 ##### Laboratories
 
-<span class="image">
+<span>
   <a href="http://sipg.isr.tecnico.ulisboa.pt/" title="SIPG" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/sipg_footer.png" alt="sipg" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/sipg_footer.png?raw=true" alt="sipg" width="20%" />
   </a>
 </span>
-<span class="image">
+<span>
   <a href="http://welcome.isr.tecnico.ulisboa.pt/" title="ISR" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/isr-lisboa_footer.png" alt="isr" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/isr-lisboa_footer.png?raw=true" alt="isr" width="20%" />
   </a>
 </span>
-<span class="image">
+<span>
   <a href="http://larsys.pt/" title="LARSys" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/larsys_footer.png" alt="larsys" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/larsys_footer.png?raw=true" alt="larsys" width="20%" />
   </a>
 </span>
-<span class="image">
-  <a href="https://www.m-iti.org/" title="M-ITI" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/iti_footer.png" alt="iti" width="20%" />
+<span>
+  <a href="https://iti.larsys.pt/" title="ITI" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/iti_footer.png?raw=true" alt="iti" width="20%" />
   </a>
 </span>
-<span class="image">
+<span>
   <a href="http://www.inesc-id.pt/" title="INESC-ID" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/inesc-id_footer.png" alt="inesc-id" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/inesc-id_footer.png?raw=true" alt="inesc-id" width="20%" />
   </a>
 </span>
 
 ##### Domain
 
-<span class="image">
+<span>
   <a href="https://europa.eu/" title="EU" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/eu_footer.png" alt="eu" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/eu_footer.png?raw=true" alt="eu" width="20%" />
   </a>
 </span>
-<span class="image">
+<span>
   <a href="https://www.portugal.gov.pt/" title="Portugal" target="_blank">
-    <img src="https://github.com/mida-project/meta/blob/master/brands/pt_footer.png" alt="pt" width="20%" />
+    <img src="https://github.com/mida-project/meta/blob/master/brands/pt_footer.png?raw=true" alt="pt" width="20%" />
   </a>
 </span>
